@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Listado de Materiales</h1>
+    
+    <!-- Barra de búsqueda -->
+    <div class="mb-3">
+        <input id="material-search" type="search" class="form-control" placeholder="Buscar por nombre o código..." aria-label="Buscar materiales">
+    </div>
+
+    <!-- Botón para crear nuevo material -->
+    <a href="{% url 'materiales:crear' %}" class="btn btn-primary mb-3">
+        <i class="bi bi-plus-circle"></i> Nuevo Material
+    </a>
+
+    <!-- Tabla de materiales -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for material in materiales %}
+                <tr>
+                    <td>{{ material.nombre }}</td>
+                    <td>{{ material.codigo|default:"-" }}</td>
+                    <td>{{ material.descripcion|default:"-"|truncatechars:50 }}</td>
+                    <td>{{ material.cantidad|default:"0" }}</td>
+                    <td>
+                        <a href="{% url 'materiales:detalle' material.pk %}" class="btn btn-sm btn-info">
+                            <i class="bi bi-eye"></i> Ver
+                        </a>
+                        <a href="{% url 'materiales:editar' material.pk %}" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay materiales registrados</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const input = document.getElementById('material-search');
+        if(!input) return;
+        input.addEventListener('input', function(){
+            const q = this.value.toLowerCase().trim();
+            const rows = document.querySelectorAll('table tbody tr');
+            rows.forEach(row=>{
+                // skip empty-row message which has colspan
+                if(row.querySelector('td[colspan]')) return;
+                const nombre = (row.cells[0]?.textContent || '').toLowerCase();
+                const codigo = (row.cells[1]?.textContent || '').toLowerCase();
+                if(q === '' || nombre.includes(q) || codigo.includes(q)){
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+    </script>
+</div>
+{% endblock %}
