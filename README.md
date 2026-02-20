@@ -21,7 +21,7 @@ Sistema integral para la gestión de obras de construcción, desarrollado con Dj
 
 1. Clonar el repositorio:
 ```bash
-git clone https://github.com/Sebastian1996avila/gestion-obras.git
+git clone https://github.com/Sebastiandev01/gestion-obras.git
 cd gestion-obras
 ```
 
@@ -99,7 +99,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 Sebastián Ávila - sebastian1996avila@gmail.com
 
-Link del proyecto: [https://github.com/Sebastian1996avila/gestion-obras](https://github.com/Sebastian1996avila/gestion-obras)
+Link del proyecto: [https://github.com/Sebastiandev01/gestion-obras](https://github.com/Sebastiandev01/gestion-obras)
 
 ## Despliegue
 
