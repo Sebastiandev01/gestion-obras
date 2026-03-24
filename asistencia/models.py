@@ -23,7 +23,8 @@ class RegistroAsistencia(models.Model):
     )
 
     fecha = models.DateField(
-        default=timezone.localdate  # Usa localdate que respeta la zona horaria
+        default=timezone.localdate,  # Usa localdate que respeta la zona horaria
+        db_index=True,
     )
 
     hora = models.TimeField(

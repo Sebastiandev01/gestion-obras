@@ -100,11 +100,14 @@ export const asistenciaService = {
     try {
       // NO ENVIAR FECHA NI HORA - Dejar que el backend las calcule
       // El backend usa timezone.localtime() en America/Bogota
-      const dataToSend = {
+      const dataToSend: any = {
         tipo: data.tipo, // IMPORTANTE: tipo es requerido
         ubicacion: data.ubicacion || null,
         observaciones: data.observaciones || null,
       };
+
+      // Incluir usuario_id si se envía (permite crear registros para otros usuarios)
+      if (data.usuario_id) dataToSend.usuario = data.usuario_id;
 
       console.log('📤 Enviando POST a /api/asistencia/registros/');
       console.log('📦 Payload completo:', JSON.stringify(dataToSend, null, 2));

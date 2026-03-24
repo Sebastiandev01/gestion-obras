@@ -35,6 +35,7 @@ import {
   LocationOn as LocationIcon,
 } from '@mui/icons-material';
 import { asistenciaService, getHoyBogota } from '../services/asistencia';
+import { empleadosService } from '../services/empleados';
 import type { Asistencia } from '../services/asistencia';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
@@ -53,6 +54,9 @@ const AsistenciaPage = () => {
   const [observaciones, setObservaciones] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [registrosHoy, setRegistrosHoy] = useState<{ ENT?: boolean; SAL?: boolean }>({});
+  const [empleados, setEmpleados] = useState<any[]>([]);
+  const [selectedEmpleadoId, setSelectedEmpleadoId] = useState<number | null>(null);
+  const [currentUser, setCurrentUser] = useState<any>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -61,8 +65,28 @@ const AsistenciaPage = () => {
       navigate('/login');
       return;
     }
+    const user = localStorage.getItem('user');
+    setCurrentUser(user ? JSON.parse(user) : null);
     cargarAsistencias();
+    cargarEmpleadosSiPuede();
   }, [navigate, enqueueSnackbar]);
+
+  const cargarEmpleadosSiPuede = async () => {
+    try {
+      const user = localStorage.getItem('user');
+      const u = user ? JSON.parse(user) : null;
+      // Solo cargar lista si es supervisor/arquitecto/administrador
+      if (u && (u.rol === 'SUP' || u.rol === 'ARQ' || u.rol === 'ADM')) {
+        const data = await empleadosService.getAll();
+        setEmpleados(data || []);
+        // seleccionar por defecto al usuario actual si está en la lista
+        const found = data.find((e: any) => e.id === u.id);
+        setSelectedEmpleadoId(found ? found.id : (data[0]?.id ?? null));
+      }
+    } catch (err) {
+      console.error('No se pudieron cargar empleados', err);
+    }
+  };
 
   // Actualizar estado de registros hoy cuando cambian las asistencias
   useEffect(() => {
@@ -143,6 +167,12 @@ const AsistenciaPage = () => {
 
       console.log('📋 Enviando payload:', payload);
       
+      // Incluir usuario_id si fue seleccionado por un supervisor/admin
+      if (selectedEmpleadoId) {
+        // enviar como usuario_id para el servicio
+        (payload as any).usuario_id = selectedEmpleadoId;
+      }
+
       const resultado = await asistenciaService.create(payload);
       console.log('✅ Registro creado:', resultado);
 
@@ -361,6 +391,22 @@ const AsistenciaPage = () => {
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="sm" fullWidth>
         <DialogTitle>Registrar Asistencia</DialogTitle>
         <DialogContent>
+          {/* Selector de empleado (visible a supervisores/arquitectos/administradores) */}
+          {(currentUser && (currentUser.rol === 'SUP' || currentUser.rol === 'ARQ' || currentUser.rol === 'ADM')) && (
+            <FormControl fullWidth sx={{ mt: 2 }}>
+              <InputLabel id="empleado-label">Empleado</InputLabel>
+              <Select
+                labelId="empleado-label"
+                value={selectedEmpleadoId ?? ''}
+                label="Empleado"
+                onChange={(e) => setSelectedEmpleadoId(Number(e.target.value))}
+              >
+                {empleados.map((emp) => (
+                  <MenuItem key={emp.id} value={emp.id}>{emp.nombre || emp.email || emp.id}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
           <FormControl fullWidth sx={{ mt: 2 }}>
             <InputLabel>Tipo</InputLabel>
             <Select
