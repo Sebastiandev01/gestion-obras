@@ -6,7 +6,7 @@ Sistema web completo para la gestión de proyectos de construcción, desarrollad
 
 ##  Demo
 
-![Demo](demo.gif)
+![Demo](docs/demo.gif)
 
 
 
