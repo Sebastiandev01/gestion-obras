@@ -1,126 +1,179 @@
-# Sistema de Gestión de Obras
+# 🏗️ Sistema de Gestión de Obras
 
-Sistema integral para la gestión de obras de construcción, desarrollado con Django y React.
+Sistema web completo para la gestión de proyectos de construcción, desarrollado con **Django (Backend)** y **React (Frontend)**.
 
-## Características
+---
 
-- Gestión de proyectos y obras
-- Control de materiales y inventario
-- Gestión de nómina y personal
-- Control de asistencia
-- Gestión de usuarios y permisos
-- API REST para integración con otros sistemas
+##  Demo
 
-## Requisitos
+![Demo](demo.gif)
 
-- Python 3.8+
-- Node.js 14+
-- PostgreSQL 12+
+
+
+---
+
+##  Descripción
+
+Este sistema permite administrar de forma eficiente todas las operaciones de una empresa constructora, incluyendo gestión de proyectos, personal, materiales y asistencia.
+
+Está diseñado con una arquitectura escalable basada en API REST, facilitando su integración con aplicaciones móviles u otros sistemas.
+
+---
+
+##  Características principales
+
+*  Gestión de proyectos y obras
+*  Control de materiales e inventario
+*  Gestión de personal y nómina
+*  Control de asistencia
+*  Sistema de autenticación y permisos
+*  API REST con Django REST Framework
+
+---
+
+## Tecnologías utilizadas
+
+### Backend
+
+* Python
+* Django
+* Django REST Framework
+* PostgreSQL
+
+### Frontend
+
+* React
+* Vite
+* Bootstrap / CSS
+
+### Otros
+
+* Git & GitHub
+* REST APIs
+
+---
 
 ## Instalación
 
-1. Clonar el repositorio:
+### 1. Clonar el repositorio
+
 ```bash
 git clone https://github.com/Sebastiandev01/gestion-obras.git
 cd gestion-obras
 ```
 
-2. Crear y activar entorno virtual:
+### 2. Configurar entorno backend
+
 ```bash
 python -m venv venv
+
+# Activar entorno virtual
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
-```
 
-3. Instalar dependencias de Python:
-```bash
 pip install -r requirements.txt
 ```
 
-4. Instalar dependencias de Node.js:
+### 3. Configurar frontend
+
 ```bash
 cd frontend
 npm install
 ```
 
-5. Configurar variables de entorno:
+### 4. Variables de entorno
+
 ```bash
 cp .env.example .env
-# Editar .env con tus configuraciones
 ```
 
-6. Aplicar migraciones:
+Editar el archivo `.env` con tus credenciales (base de datos, secret key, etc.)
+
+---
+
+## Ejecución
+
+### Backend
+
 ```bash
 python manage.py migrate
-```
-
-7. Crear superusuario:
-```bash
 python manage.py createsuperuser
+python manage.py runserver
 ```
 
-8. Iniciar servidor de desarrollo:
-```bash
-# Backend
-python manage.py runserver
+### Frontend
 
-# Frontend (en otra terminal)
+```bash
 cd frontend
 npm run dev
 ```
 
-## Estructura del Proyecto
+---
+
+## Estructura del proyecto
 
 ```
 gestion-obras/
-├── backend/           # API Django
-├── frontend/          # Aplicación React
-├── asistencia/        # Módulo de asistencia
-├── materiales/        # Módulo de materiales
-├── nomina/           # Módulo de nómina
-├── obras/            # Módulo de obras
-├── proyectos/        # Módulo de proyectos
-└── usuarios/         # Módulo de usuarios
+├── backend/
+├── frontend/
+├── asistencia/
+├── materiales/
+├── nomina/
+├── obras/
+├── proyectos/
+└── usuarios/
 ```
 
-## Contribuir
+---
 
-1. Fork el repositorio
-2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir un Pull Request
+## Arquitectura
 
-## Licencia
+* Backend desacoplado con API REST
+* Frontend independiente en React
+* Base de datos relacional con PostgreSQL
+* Sistema modular por aplicaciones Django
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## Contacto
-
-Sebastián Ávila - sebastian1996avila@gmail.com
-
-Link del proyecto: [https://github.com/Sebastiandev01/gestion-obras](https://github.com/Sebastiandev01/gestion-obras)
+---
 
 ## Despliegue
 
-### Despliegue Local
+### Producción
 
-1. Asegúrate de que todas las dependencias estén instaladas
-2. Configura las variables de entorno
-3. Inicia el servidor de base de datos PostgreSQL
-4. Ejecuta las migraciones
-5. Inicia el servidor backend
-6. Inicia el servidor frontend
+* Nginx (servidor web)
+* Gunicorn (WSGI)
+* PostgreSQL
+* Configuración de variables de entorno
+* SSL/TLS
 
-### Despliegue en Producción
+---
 
-1. Configurar el servidor web (Nginx/Apache)
-2. Configurar Gunicorn como servidor WSGI
-3. Configurar SSL/TLS
-4. Actualizar las variables de entorno para producción
-5. Configurar el servicio de base de datos
-6. Configurar el servicio de archivos estáticos
+## Contribuciones
 
-## Soporte
+Las contribuciones son bienvenidas:
 
-Para reportar problemas o solicitar ayuda, por favor crear un issue en el repositorio del proyecto.
+```bash
+git checkout -b feature/nueva-funcionalidad
+git commit -m "feat: nueva funcionalidad"
+git push origin feature/nueva-funcionalidad
+```
+
+---
+
+## Licencia
+
+MIT License
+
+---
+
+## Autor
+
+**Sebastián Ávila**
+
+ [sebastian1996avila@gmail.com](mailto:sebastian1996avila@gmail.com)
+ https://github.com/Sebastiandev01
+
+---
+
+##  Nota
+
+Este proyecto hace parte de mi portafolio como desarrollador enfocado en **Django y desarrollo backend**, mostrando habilidades en arquitectura de sistemas, APIs REST y desarrollo fullstack.
