@@ -157,19 +157,13 @@ git commit -m "feat: nueva funcionalidad"
 git push origin feature/nueva-funcionalidad
 ```
 
----
 
-## Licencia
-
-MIT License
-
----
 
 ## Autor
 
 **Sebastián Ávila**
 
- [sebastian1996avila@gmail.com](mailto:sebastian1996avila@gmail.com)
+ [Dev.sebastian01@gmail.com](mailto:Dev.sebastian01@gmail.com)
  https://github.com/Sebastiandev01
 
 ---
